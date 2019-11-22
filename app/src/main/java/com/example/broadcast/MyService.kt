@@ -3,29 +3,12 @@ package com.example.broadcast
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 
-class AirPlaneModeChanged : BroadcastReceiver(){
-    override fun onReceive(context: Context, intent: Intent) {
-
-        if (intent.action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
-            Log.d("AirPlaneStateChanged", "Mudou estado do airplane, estado: " +
-                    "${intent.getBooleanExtra("state", false)}")
-
-            val airPlaneModeChanged = intent?.getIntExtra(Intent.ACTION_AIRPLANE_MODE_CHANGED, -1)
-            if (airPlaneModeChanged == 1 || airPlaneModeChanged == 3)
-                callAirPlaneNotification(context, intent.getBooleanExtra("state", false))
-
-        } else {
-            Log.e("AirPlaneStateChanged", "Aconteceu algum problema, Action ${intent.action}")
-        }
-
-    }
+class MyService {
 
     private fun callAirPlaneNotification(context: Context, state: Boolean) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

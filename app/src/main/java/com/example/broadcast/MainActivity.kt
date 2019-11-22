@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import android.net.wifi.WifiManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +14,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val btn = button
+        btn.setOnClickListener {
+
+        }
     }
 
     override fun onResume() {
@@ -22,13 +28,13 @@ class MainActivity : AppCompatActivity() {
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION)
         // filter.addAction("android.telephony.action.SIM_CARD_STATE_CHANGED")
         filter2.addAction( Intent.ACTION_AIRPLANE_MODE_CHANGED)
-        registerReceiver(mSimStateChanged, filter)
+        //registerReceiver(mSimStateChanged, filter)
         registerReceiver(mAirPlaneModeChanged, filter2)
     }
 
     override fun onPause() {
         super.onPause()
-        unregisterReceiver(mAirPlaneModeChanged)
+        //unregisterReceiver(mAirPlaneModeChanged)
         unregisterReceiver(mSimStateChanged)
     }
 }

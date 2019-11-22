@@ -12,15 +12,19 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 
 class WiffiStateChange : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent?) {
         if (intent?.action.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)){
             Log.e("MyFirstButton", "mudou, Action: ${intent?.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1)}")
+
+            val wiffiState = intent?.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1)
+            if (wiffiState == 1 || wiffiState == 3)
+                callNotification(context, wiffiState)
         } else {
             Log.e("MyFirstButton", "Erro no Boot receiver, Action: ${intent?.action}")
         }
     }
 
-    private fun callNotification(context: Context, state: Boolean){
+    private fun callNotification(context: Context, state: Int){
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val intent = Intent(context, SecondScreem::class.java).apply{
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -30,7 +34,7 @@ class WiffiStateChange : BroadcastReceiver() {
         val pendingIntent = PendingIntent.getActivity(context, 1234, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val builder = NotificationCompat.Builder(context, "MY")
-        //builder.setSmallIcon()
+        builder.setSmallIcon(R.drawable.ic_launcher_background)
         builder.setContentTitle("ss")
         builder.setContentText("ssa")
         builder.priority = NotificationCompat.PRIORITY_HIGH
