@@ -3,8 +3,9 @@ package com.example.broadcast
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
 
         val btn = button
         btn.setOnClickListener {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            }
 
         }
     }
